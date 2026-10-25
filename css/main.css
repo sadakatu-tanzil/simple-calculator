@@ -26,6 +26,10 @@
 }
 
 .body {
+  background-image: url(https://cdn.pixabay.com/photo/2025/04/19/05/31/numbers-9543365_1280.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   background-color: var(--color-body);
   color: var(--color-secondary);
   height: 100dvh;
