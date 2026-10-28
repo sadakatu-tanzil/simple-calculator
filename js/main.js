@@ -10,6 +10,29 @@ const calculationState = {
   operator: "",
 };
 
+function clearState() {
+  calculationState.num1 = 0;
+  calculationState.num2 = 0;
+  calculationState.operator = "";
+}
+
+function calculate(a, b, operator) {
+  const numA = Number(a);
+  const numB = Number(b);
+  switch (operator) {
+    case "+":
+      return numA + numB;
+    case "-":
+      return numA - numB;
+    case "*":
+      return numA * numB;
+    case "/":
+      return numA / numB;
+    default:
+      return "error";
+  }
+}
+
 /** Screen
  * display input and output
  * update frequently
@@ -30,12 +53,17 @@ calculatorButtons.forEach((calculatorButton) => {
   calculatorButton.addEventListener("click", function () {
     // numeric buttons
     if (this.dataset.buttonType === "numeric") {
-      console.log(this.dataset.buttonValue);
+      // todo
     }
 
     // operator buttons
     if (this.dataset.buttonType === "operator") {
-      console.log(this.dataset.buttonValue);
+      // todo
+    }
+
+    // equal button
+    if (this.dataset.buttonType === "equal") {
+      // todo
     }
   });
 });
