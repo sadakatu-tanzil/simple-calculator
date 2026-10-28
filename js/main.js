@@ -6,14 +6,18 @@ const calculator = document.querySelector(".calculator");
 
 const calculationState = {
   num1: 0,
-  num2: 0,
+  num2: "",
   operator: "",
+  result: "",
 };
 
 function clearState() {
-  calculationState.num1 = 0;
-  calculationState.num2 = 0;
-  calculationState.operator = "";
+  const { num1, num2, operator, result } = calculationState;
+
+  num1 = result;
+  num2 = "";
+  operator = "";
+  result = "";
 }
 
 function calculate(a, b, operator) {
