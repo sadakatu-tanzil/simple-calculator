@@ -1,5 +1,15 @@
 const calculator = document.querySelector(".calculator");
 
+/** State
+ * this is the key
+ */
+
+const calculationState = {
+  num1: 0,
+  num2: 0,
+  operator: "",
+};
+
 /** Screen
  * display input and output
  * update frequently
