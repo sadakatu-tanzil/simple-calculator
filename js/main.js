@@ -44,8 +44,7 @@ const output = calculator.querySelector(".calculator__screen-text");
 function updateOutput(currentOutput = "") {
   const { num1, num2, operator } = calculationState;
   const outputstr = `${num1 || ""}${operator || ""}${num2 || ""}`;
-  console.clear();
-  console.log(outputstr);
+  output.textContent = outputstr;
 }
 
 /** Buttons
