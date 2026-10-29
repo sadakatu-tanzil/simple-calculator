@@ -41,10 +41,14 @@ function calculate(a, b, operator) {
  */
 
 const output = calculator.querySelector(".calculator__screen-text");
-function updateOutput(currentOutput = "") {
+function displayCalculation() {
   const { num1, num2, operator } = calculationState;
   const outputstr = `${num1 || ""}${operator || ""}${num2 || ""}`;
   output.textContent = outputstr;
+}
+
+function displayMessage(message) {
+  output.textContent = message;
 }
 
 /** Buttons
@@ -66,7 +70,7 @@ calculatorButtons.forEach((calculatorButton) => {
           return;
         calculationState.num2 += this.dataset.buttonValue;
       }
-      updateOutput();
+      displayCalculation();
     }
 
     // operator buttons
@@ -82,7 +86,7 @@ calculatorButtons.forEach((calculatorButton) => {
        * reset num2
        * finally, add/replace operator
        */
-      updateOutput();
+      displayCalculation();
     }
 
     // equal button
