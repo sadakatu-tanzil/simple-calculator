@@ -8,7 +8,6 @@ const calculationState = {
   num1: "",
   num2: "",
   operator: "",
-  result: "",
 };
 
 function clearState() {
@@ -102,21 +101,14 @@ calculatorButtons.forEach((calculatorButton) => {
 
     // operator buttons
     if (this.dataset.buttonType === "operator") {
-      /** when num2 is empty
-       * simply add/replace operator
-       */
+      // when num2 is empty
       if (calculationState.num2 === "") {
         calculationState.operator = this.dataset.buttonValue;
         displayCalculation();
         return;
       }
 
-      /** When num2 is not empty
-       * calculate
-       * set the result to num1
-       * reset num2
-       * finally, add/replace operator
-       */
+      // when num2 is not empty
       calculation();
       calculationState.operator = this.dataset.buttonValue;
       displayCalculation();
