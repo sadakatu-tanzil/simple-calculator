@@ -35,6 +35,33 @@ function calculate(a, b, operator) {
   }
 }
 
+function calculation() {
+  /**
+   * calculate
+   * set the result to num1
+   * reset num2
+   * finally, add/replace operator
+   */
+  const { num1, num2, operator } = calculationState;
+  const result = calculate(num1, num2, operator);
+
+  if (isNaN(result)) {
+    displayMessage("error");
+    clearState();
+    return;
+  }
+
+  if (!isFinite(result)) {
+    displayMessage("infinity");
+    clearState();
+    return;
+  }
+
+  displayMessage(result);
+  clearState();
+  calculationState.num1 = result;
+}
+
 /** Screen
  * display input and output
  * update frequently
@@ -43,7 +70,7 @@ function calculate(a, b, operator) {
 const output = calculator.querySelector(".calculator__screen-text");
 function displayCalculation() {
   const { num1, num2, operator } = calculationState;
-  const outputstr = `${num1 || ""}${operator || ""}${num2 || ""}`;
+  const outputstr = `${num1}${operator}${num2}`;
   output.textContent = outputstr;
 }
 
@@ -78,20 +105,30 @@ calculatorButtons.forEach((calculatorButton) => {
       /** when num2 is empty
        * simply add/replace operator
        */
-      calculationState.operator = this.dataset.buttonValue;
+      if (calculationState.num2 === "") {
+        calculationState.operator = this.dataset.buttonValue;
+        displayCalculation();
+        return;
+      }
 
-      /** when num2 is notempty
+      /** When num2 is not empty
        * calculate
        * set the result to num1
        * reset num2
        * finally, add/replace operator
        */
+      calculation();
+      calculationState.operator = this.dataset.buttonValue;
       displayCalculation();
     }
 
     // equal button
     if (this.dataset.buttonType === "equal") {
-      // todo
+      if (calculationState.operator === "" || calculationState.num2 === "") {
+        return;
+      }
+
+      calculation();
     }
   });
 });
