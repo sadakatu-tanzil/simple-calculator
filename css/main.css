@@ -207,24 +207,28 @@ a {
   transition: color 0.3s;
 }
 
-.calculator__button:hover {
+.calculator__button:not([disabled]):hover {
   background-color: var(--color-white);
 
   .calculator__button-text {
     color: var(--color-black);
   }
+
+  &[data-button-type="ce"]:hover {
+    background-color: var(--color-red-dark);
+    color: var(--color-black);
+  }
+
+  &[data-button-type="c"]:hover {
+    background-color: var(--color-red);
+  }
+
+  &[data-button-type="equal"]:hover {
+    background-color: var(--color-green);
+  }
 }
 
-/* special buttons */
-[data-button-type="ce"]:hover {
-  background-color: var(--color-red-dark);
-  color: var(--color-black);
-}
-
-[data-button-type="c"]:hover {
-  background-color: var(--color-red);
-}
-
-[data-button-type="equal"]:hover {
-  background-color: var(--color-green);
+[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
