@@ -8,7 +8,6 @@ const calculationState = {
   num1: "",
   num2: "",
   operator: "",
-  result: "",
 };
 
 function clearState() {
@@ -35,16 +34,47 @@ function calculate(a, b, operator) {
   }
 }
 
+function calculation() {
+  /**
+   * calculate
+   * set the result to num1
+   * reset num2
+   * finally, add/replace operator
+   */
+  const { num1, num2, operator } = calculationState;
+  const result = calculate(num1, num2, operator);
+
+  if (isNaN(result)) {
+    displayMessage("error");
+    clearState();
+    return;
+  }
+
+  if (!isFinite(result)) {
+    displayMessage("infinity");
+    clearState();
+    return;
+  }
+
+  displayMessage(result);
+  clearState();
+  calculationState.num1 = result;
+}
+
 /** Screen
  * display input and output
  * update frequently
  */
 
 const output = calculator.querySelector(".calculator__screen-text");
-function updateOutput(currentOutput = "") {
+function displayCalculation() {
   const { num1, num2, operator } = calculationState;
-  const outputstr = `${num1 || ""}${operator || ""}${num2 || ""}`;
+  const outputstr = `${num1}${operator}${num2}`;
   output.textContent = outputstr;
+}
+
+function displayMessage(message) {
+  output.textContent = message;
 }
 
 /** Buttons
@@ -66,28 +96,31 @@ calculatorButtons.forEach((calculatorButton) => {
           return;
         calculationState.num2 += this.dataset.buttonValue;
       }
-      updateOutput();
+      displayCalculation();
     }
 
     // operator buttons
     if (this.dataset.buttonType === "operator") {
-      /** when num2 is empty
-       * simply add/replace operator
-       */
-      calculationState.operator = this.dataset.buttonValue;
+      // when num2 is empty
+      if (calculationState.num2 === "") {
+        calculationState.operator = this.dataset.buttonValue;
+        displayCalculation();
+        return;
+      }
 
-      /** when num2 is notempty
-       * calculate
-       * set the result to num1
-       * reset num2
-       * finally, add/replace operator
-       */
-      updateOutput();
+      // when num2 is not empty
+      calculation();
+      calculationState.operator = this.dataset.buttonValue;
+      displayCalculation();
     }
 
     // equal button
     if (this.dataset.buttonType === "equal") {
-      // todo
+      if (calculationState.operator === "" || calculationState.num2 === "") {
+        return;
+      }
+
+      calculation();
     }
   });
 });
