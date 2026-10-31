@@ -122,5 +122,28 @@ calculatorButtons.forEach((calculatorButton) => {
 
       calculation();
     }
+
+    // clear button
+    if (this.dataset.buttonType === "c") {
+      if (calculationState.num2 !== "") {
+        calculationState.num2 = calculationState.num2.slice(0, -1);
+        displayCalculation();
+        return;
+      }
+
+      if (calculationState.operator !== "") {
+        calculationState.operator = calculationState.operator.slice(0, -1);
+        displayCalculation();
+        return;
+      }
+
+      if (calculationState.num1 !== "") {
+        calculationState.num1 = calculationState.num1.slice(0, -1);
+        displayCalculation();
+        return;
+      }
+    }
+
+    // clear all button
   });
 });
