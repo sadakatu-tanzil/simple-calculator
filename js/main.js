@@ -101,6 +101,12 @@ calculatorButtons.forEach((calculatorButton) => {
 
     // operator buttons
     if (this.dataset.buttonType === "operator") {
+      // when num1 is empty
+      if (calculationState.num1 === "") {
+        displayCalculation();
+        return;
+      }
+
       // when num2 is empty
       if (calculationState.num2 === "") {
         calculationState.operator = this.dataset.buttonValue;
