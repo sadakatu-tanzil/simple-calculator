@@ -69,6 +69,12 @@ function calculation() {
 const output = calculator.querySelector(".calculator__screen-text");
 function displayCalculation() {
   const { num1, num2, operator } = calculationState;
+
+  if (num1 === "") {
+    output.textContent = "0";
+    return;
+  }
+
   const outputstr = `${num1}${operator}${num2}`;
   output.textContent = outputstr;
 }
