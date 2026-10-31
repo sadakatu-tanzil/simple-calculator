@@ -1,9 +1,6 @@
 const calculator = document.querySelector(".calculator");
 
-/** State
- * this is the key
- */
-
+// state
 const calculationState = {
   num1: "",
   num2: "",
@@ -35,12 +32,6 @@ function calculate(a, b, operator) {
 }
 
 function calculation() {
-  /**
-   * calculate
-   * set the result to num1
-   * reset num2
-   * finally, add/replace operator
-   */
   const { num1, num2, operator } = calculationState;
   const result = calculate(num1, num2, operator);
 
@@ -61,14 +52,16 @@ function calculation() {
   calculationState.num1 = result;
 }
 
-/** Screen
- * display input and output
- * update frequently
- */
-
+// screen
 const output = calculator.querySelector(".calculator__screen-text");
 function displayCalculation() {
   const { num1, num2, operator } = calculationState;
+
+  if (num1 === "") {
+    output.textContent = "0";
+    return;
+  }
+
   const outputstr = `${num1}${operator}${num2}`;
   output.textContent = outputstr;
 }
@@ -77,11 +70,7 @@ function displayMessage(message) {
   output.textContent = message;
 }
 
-/** Buttons
- * dictates functionality
- * handle logic carefully
- */
-
+// buttons
 const calculatorButtons = calculator.querySelectorAll(".calculator__button");
 calculatorButtons.forEach((calculatorButton) => {
   calculatorButton.addEventListener("click", function () {
@@ -101,6 +90,12 @@ calculatorButtons.forEach((calculatorButton) => {
 
     // operator buttons
     if (this.dataset.buttonType === "operator") {
+      // when num1 is empty
+      if (calculationState.num1 === "") {
+        displayCalculation();
+        return;
+      }
+
       // when num2 is empty
       if (calculationState.num2 === "") {
         calculationState.operator = this.dataset.buttonValue;
@@ -108,7 +103,7 @@ calculatorButtons.forEach((calculatorButton) => {
         return;
       }
 
-      // when num2 is not empty
+      // when both is not empty
       calculation();
       calculationState.operator = this.dataset.buttonValue;
       displayCalculation();
