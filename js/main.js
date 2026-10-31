@@ -145,5 +145,9 @@ calculatorButtons.forEach((calculatorButton) => {
     }
 
     // clear all button
+    if (this.dataset.buttonType === "ce") {
+      clearState();
+      displayMessage("0");
+    }
   });
 });
