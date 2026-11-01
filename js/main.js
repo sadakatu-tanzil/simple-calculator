@@ -1,4 +1,6 @@
 const calculator = document.querySelector(".calculator");
+const output = calculator.querySelector(".calculator__screen-text");
+const calculatorButtons = calculator.querySelectorAll(".calculator__button");
 
 // state
 const calculationState = {
@@ -11,7 +13,6 @@ function clearState() {
   calculationState.num1 = "";
   calculationState.num2 = "";
   calculationState.operator = "";
-  calculationState.result = "";
 }
 
 function calculate(a, b, operator) {
@@ -34,6 +35,7 @@ function calculate(a, b, operator) {
 function calculation() {
   const { num1, num2, operator } = calculationState;
   const result = calculate(num1, num2, operator);
+  const checkedResult = isInt(result) ? result : result.toFixed(5);
 
   if (isNaN(result)) {
     displayMessage("error");
@@ -47,13 +49,11 @@ function calculation() {
     return;
   }
 
-  displayMessage(result);
+  displayMessage(checkedResult);
   clearState();
-  calculationState.num1 = result;
 }
 
 // screen
-const output = calculator.querySelector(".calculator__screen-text");
 function displayCalculation() {
   const { num1, num2, operator } = calculationState;
 
@@ -62,8 +62,8 @@ function displayCalculation() {
     return;
   }
 
-  const outputstr = `${num1}${operator}${num2}`;
-  output.textContent = outputstr;
+  const outputString = `${num1}${operator}${num2}`;
+  output.textContent = outputString;
 }
 
 function displayMessage(message) {
@@ -71,7 +71,6 @@ function displayMessage(message) {
 }
 
 // buttons
-const calculatorButtons = calculator.querySelectorAll(".calculator__button");
 calculatorButtons.forEach((calculatorButton) => {
   calculatorButton.addEventListener("click", function () {
     // numeric buttons
@@ -92,7 +91,6 @@ calculatorButtons.forEach((calculatorButton) => {
     if (this.dataset.buttonType === "operator") {
       // when num1 is empty
       if (calculationState.num1 === "") {
-        displayCalculation();
         return;
       }
 
@@ -133,7 +131,7 @@ calculatorButtons.forEach((calculatorButton) => {
       }
 
       if (calculationState.num1 !== "") {
-        calculationState.num1 = calculationState.num1.slice(0, -1);
+        calculationState.num1 = "";
         displayCalculation();
         return;
       }
@@ -146,3 +144,7 @@ calculatorButtons.forEach((calculatorButton) => {
     }
   });
 });
+
+function isInt(num) {
+  return num % 1 === 0;
+}
