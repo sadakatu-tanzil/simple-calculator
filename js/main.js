@@ -44,13 +44,14 @@ function calculation() {
   }
 
   if (!isFinite(result)) {
-    displayMessage("infinity");
+    displayMessage("bruh! that's illegal");
     clearState();
     return;
   }
 
   displayMessage(checkedResult);
   clearState();
+  calculationState.num1 = checkedResult;
 }
 
 // screen
@@ -114,6 +115,7 @@ calculatorButtons.forEach((calculatorButton) => {
       }
 
       calculation();
+      clearState();
     }
 
     // clear button
