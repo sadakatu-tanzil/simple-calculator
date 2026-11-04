@@ -156,7 +156,7 @@ a {
   font-family: var(--font-mono), monospace;
   font-weight: 600;
   text-box: trim-both cap alphabetic;
-  line-height: 1.5;
+  line-height: 1;
   letter-spacing: -0.05em;
   text-align: right;
   width: 100%;
