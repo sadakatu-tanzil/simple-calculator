@@ -40,7 +40,6 @@ function calculate(a, b, operator) {
 function calculation() {
   const { num1, num2, operator } = calculationState;
   const result = calculate(num1, num2, operator);
-  const checkedResult = isInt(result) ? result : result.toFixed(5);
 
   if (isNaN(result)) {
     displayMessage("error");
@@ -49,12 +48,12 @@ function calculation() {
   }
 
   if (!isFinite(result)) {
-    displayMessage("bruh! that's illegal");
+    displayMessage("that's illegal");
     clearState();
     return;
   }
 
-  displayMessage(checkedResult);
+  displayMessage(isInt(result) ? result : result.toFixed(9));
   clearState();
   calculationState.num1 = checkedResult;
 }
