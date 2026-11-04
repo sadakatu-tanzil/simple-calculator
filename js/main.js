@@ -81,11 +81,17 @@ calculatorButtons.forEach((calculatorButton) => {
     // numeric buttons
     if (this.dataset.buttonType === "numeric") {
       if (calculationState.operator === "") {
-        if (this.dataset.buttonValue === "0" && calculationState.num1 === "")
+        if (
+          this.dataset.buttonValue === "0" &&
+          calculationState.num1[0] === "0"
+        )
           return;
         calculationState.num1 += this.dataset.buttonValue;
       } else {
-        if (this.dataset.buttonValue === "0" && calculationState.num2 === "")
+        if (
+          this.dataset.buttonValue === "0" &&
+          calculationState.num2[0] === "0"
+        )
           return;
         calculationState.num2 += this.dataset.buttonValue;
       }
