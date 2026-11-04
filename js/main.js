@@ -15,18 +15,23 @@ function clearState() {
   calculationState.operator = "";
 }
 
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => a / b;
+
 function calculate(a, b, operator) {
   const numA = Number(a);
   const numB = Number(b);
   switch (operator) {
     case "+":
-      return numA + numB;
+      return add(numA, numB);
     case "-":
-      return numA - numB;
+      return subtract(numA, numB);
     case "*":
-      return numA * numB;
+      return multiply(numA, numB);
     case "/":
-      return numA / numB;
+      return divide(numA, numB);
     default:
       return "error";
   }
@@ -35,7 +40,6 @@ function calculate(a, b, operator) {
 function calculation() {
   const { num1, num2, operator } = calculationState;
   const result = calculate(num1, num2, operator);
-  const checkedResult = isInt(result) ? result : result.toFixed(5);
 
   if (isNaN(result)) {
     displayMessage("error");
@@ -44,13 +48,15 @@ function calculation() {
   }
 
   if (!isFinite(result)) {
-    displayMessage("infinity");
+    displayMessage("that's illegal");
     clearState();
     return;
   }
 
-  displayMessage(checkedResult);
+  const fixedResult = isInt(result) ? result : parseFloat(result.toFixed(9));
+  displayMessage(fixedResult);
   clearState();
+  calculationState.num1 = fixedResult;
 }
 
 // screen
@@ -62,8 +68,7 @@ function displayCalculation() {
     return;
   }
 
-  const outputString = `${num1}${operator}${num2}`;
-  output.textContent = outputString;
+  output.textContent = `${num1}${operator}${num2}`;
 }
 
 function displayMessage(message) {
@@ -76,12 +81,34 @@ calculatorButtons.forEach((calculatorButton) => {
     // numeric buttons
     if (this.dataset.buttonType === "numeric") {
       if (calculationState.operator === "") {
-        if (this.dataset.buttonValue === "0" && calculationState.num1 === "")
+        if (
+          this.dataset.buttonValue === "0" &&
+          calculationState.num1[0] === "0"
+        ) {
           return;
+        }
+
+        if (calculationState.num1[0] === "0") {
+          calculationState.num1 = this.dataset.buttonValue;
+          displayCalculation();
+          return;
+        }
+
         calculationState.num1 += this.dataset.buttonValue;
       } else {
-        if (this.dataset.buttonValue === "0" && calculationState.num2 === "")
+        if (
+          this.dataset.buttonValue === "0" &&
+          calculationState.num2[0] === "0"
+        ) {
           return;
+        }
+
+        if (calculationState.num2[0] === "0") {
+          calculationState.num2 = this.dataset.buttonValue;
+          displayCalculation();
+          return;
+        }
+
         calculationState.num2 += this.dataset.buttonValue;
       }
       displayCalculation();
@@ -114,6 +141,7 @@ calculatorButtons.forEach((calculatorButton) => {
       }
 
       calculation();
+      clearState();
     }
 
     // clear button
