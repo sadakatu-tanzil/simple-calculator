@@ -68,8 +68,7 @@ function displayCalculation() {
     return;
   }
 
-  const outputString = `${num1}${operator}${num2}`;
-  output.textContent = outputString;
+  output.textContent = `${num1}${operator}${num2}`;
 }
 
 function displayMessage(message) {
