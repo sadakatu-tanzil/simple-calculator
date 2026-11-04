@@ -85,15 +85,31 @@ calculatorButtons.forEach((calculatorButton) => {
         if (
           this.dataset.buttonValue === "0" &&
           calculationState.num1[0] === "0"
-        )
+        ) {
           return;
+        }
+
+        if (calculationState.num1[0] === "0") {
+          calculationState.num1 = this.dataset.buttonValue;
+          displayCalculation();
+          return;
+        }
+
         calculationState.num1 += this.dataset.buttonValue;
       } else {
         if (
           this.dataset.buttonValue === "0" &&
           calculationState.num2[0] === "0"
-        )
+        ) {
           return;
+        }
+
+        if (calculationState.num2[0] === "0") {
+          calculationState.num2 = this.dataset.buttonValue;
+          displayCalculation();
+          return;
+        }
+
         calculationState.num2 += this.dataset.buttonValue;
       }
       displayCalculation();
