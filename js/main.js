@@ -53,7 +53,7 @@ function calculation() {
     return;
   }
 
-  const fixedResult = isInt(result) ? result : result.toFixed(9);
+  const fixedResult = isInt(result) ? result : parseFloat(result.toFixed(9));
   displayMessage(fixedResult);
   clearState();
   calculationState.num1 = fixedResult;
