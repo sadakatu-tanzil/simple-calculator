@@ -53,9 +53,10 @@ function calculation() {
     return;
   }
 
-  displayMessage(isInt(result) ? result : result.toFixed(9));
+  const fixedResult = isInt(result) ? result : result.toFixed(9);
+  displayMessage(fixedResult);
   clearState();
-  calculationState.num1 = checkedResult;
+  calculationState.num1 = fixedResult;
 }
 
 // screen
