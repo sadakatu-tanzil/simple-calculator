@@ -114,6 +114,27 @@ calculatorButtons.forEach((calculatorButton) => {
       displayCalculation();
     }
 
+    // decimal button
+    if (this.dataset.buttonType === "decimal") {
+      if (calculationState.num2 === "") {
+        if ([...calculationState.num1].includes(".")) {
+          return;
+        } else {
+          calculationState.num1 += this.dataset.buttonValue;
+          displayCalculation();
+          return;
+        }
+      }
+
+      if ([...calculationState.num2].includes(".")) {
+        return;
+      } else {
+        calculationState.num2 += this.dataset.buttonValue;
+        displayCalculation();
+        return;
+      }
+    }
+
     // operator buttons
     if (this.dataset.buttonType === "operator") {
       // when num1 is empty
