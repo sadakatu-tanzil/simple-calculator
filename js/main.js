@@ -164,6 +164,13 @@ calculatorButtons.forEach((calculatorButton) => {
       if (calculationState.num1 === "") {
         calculationState.num1 = calculationState.lastAnswer;
         displayCalculation();
+        return;
+      }
+
+      if (calculationState.num2 === "") {
+        calculationState.num2 = calculationState.lastAnswer;
+        displayCalculation();
+        return;
       }
     }
 
