@@ -54,11 +54,12 @@ function calculation() {
     return;
   }
 
-  const fixedResult = isInt(result) ? result : parseFloat(result.toFixed(9));
+  let fixedResult = isInt(result) ? result : parseFloat(result.toFixed(9));
   displayMessage(fixedResult);
   clearState();
   calculationState.num1 = fixedResult;
   calculationState.lastAnswer = fixedResult;
+  fixedResult = "";
 }
 
 // screen
