@@ -144,6 +144,19 @@ calculatorButtons.forEach((calculatorButton) => {
       clearState();
     }
 
+    // negative button
+    if (this.dataset.buttonType === "negative") {
+      const { num2 } = calculationState;
+      if (num2 === "") {
+        calculationState.num1 = "-" + calculationState.num1;
+        displayCalculation();
+        return;
+      }
+
+      calculationState.num2 = "-" + calculationState.num2;
+      displayCalculation();
+    }
+
     // clear button
     if (this.dataset.buttonType === "c") {
       if (calculationState.num2 !== "") {
