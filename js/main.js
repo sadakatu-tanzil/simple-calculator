@@ -7,6 +7,7 @@ const calculationState = {
   num1: "",
   num2: "",
   operator: "",
+  lastAnswer: "",
 };
 
 function clearState() {
@@ -57,6 +58,7 @@ function calculation() {
   displayMessage(fixedResult);
   clearState();
   calculationState.num1 = fixedResult;
+  calculationState.lastAnswer = fixedResult;
 }
 
 // screen
@@ -155,6 +157,14 @@ calculatorButtons.forEach((calculatorButton) => {
 
       calculationState.num2 = "-" + calculationState.num2;
       displayCalculation();
+    }
+
+    // ans button
+    if (this.dataset.buttonType === "ans") {
+      if (calculationState.num1 === "") {
+        calculationState.num1 = calculationState.lastAnswer;
+        displayCalculation();
+      }
     }
 
     // clear button
