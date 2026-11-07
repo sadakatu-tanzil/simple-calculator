@@ -54,11 +54,12 @@ function calculation() {
     return;
   }
 
-  const fixedResult = isInt(result) ? result : parseFloat(result.toFixed(9));
+  let fixedResult = isInt(result) ? result : parseFloat(result.toFixed(9));
   displayMessage(fixedResult);
   clearState();
   calculationState.num1 = fixedResult;
   calculationState.lastAnswer = fixedResult;
+  fixedResult = "";
 }
 
 // screen
@@ -164,6 +165,13 @@ calculatorButtons.forEach((calculatorButton) => {
       if (calculationState.num1 === "") {
         calculationState.num1 = calculationState.lastAnswer;
         displayCalculation();
+        return;
+      }
+
+      if (calculationState.num2 === "") {
+        calculationState.num2 = calculationState.lastAnswer;
+        displayCalculation();
+        return;
       }
     }
 
