@@ -151,7 +151,23 @@ calculatorButtons.forEach((calculatorButton) => {
     if (this.dataset.buttonType === "negative") {
       const { num2 } = calculationState;
       if (num2 === "") {
+        if (calculationState.num1.includes("-")) {
+          calculationState.num1 = [...calculationState.num1]
+            .filter((char) => char !== "-")
+            .join("");
+          displayCalculation();
+          return;
+        }
+
         calculationState.num1 = "-" + calculationState.num1;
+        displayCalculation();
+        return;
+      }
+
+      if (calculationState.num2.includes("-")) {
+        calculationState.num2 = [...calculationState.num2]
+          .filter((char) => char !== "-")
+          .join("");
         displayCalculation();
         return;
       }
