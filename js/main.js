@@ -54,11 +54,12 @@ function calculation() {
     return;
   }
 
-  const fixedResult = isInt(result) ? result : parseFloat(result.toFixed(9));
+  let fixedResult = isInt(result) ? result : parseFloat(result.toFixed(9));
   displayMessage(fixedResult);
   clearState();
   calculationState.num1 = fixedResult;
   calculationState.lastAnswer = fixedResult;
+  fixedResult = "";
 }
 
 // screen
@@ -146,11 +147,27 @@ calculatorButtons.forEach((calculatorButton) => {
       clearState();
     }
 
-    // negative button
+    // negative button functionality
     if (this.dataset.buttonType === "negative") {
       const { num2 } = calculationState;
       if (num2 === "") {
+        if (calculationState.num1.includes("-")) {
+          calculationState.num1 = [...calculationState.num1]
+            .filter((char) => char !== "-")
+            .join("");
+          displayCalculation();
+          return;
+        }
+
         calculationState.num1 = "-" + calculationState.num1;
+        displayCalculation();
+        return;
+      }
+
+      if (calculationState.num2.includes("-")) {
+        calculationState.num2 = [...calculationState.num2]
+          .filter((char) => char !== "-")
+          .join("");
         displayCalculation();
         return;
       }
@@ -164,6 +181,13 @@ calculatorButtons.forEach((calculatorButton) => {
       if (calculationState.num1 === "") {
         calculationState.num1 = calculationState.lastAnswer;
         displayCalculation();
+        return;
+      }
+
+      if (calculationState.num2 === "") {
+        calculationState.num2 = calculationState.lastAnswer;
+        displayCalculation();
+        return;
       }
     }
 
